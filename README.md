@@ -1,6 +1,9 @@
-# NLW #1
+# NLW #1 - Aplicação Ecoleta Web
 
 ## Next Level Week Rocketseat
 
+
+
 ![](/src/assets/logo.svg)
-Aplicação Ecoleta Web
+
+Made by [Julio Azevedo](https://github.com/julioaze) :rocket:
