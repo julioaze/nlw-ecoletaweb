@@ -4,6 +4,6 @@
 
 
 
-![](/src/assets/logo.svg)
+![](/src/assets/Capa.png)
 
 Made by [Julio Azevedo](https://github.com/julioaze) :rocket:
