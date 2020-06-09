@@ -6,6 +6,8 @@ import axios from 'axios';
 import { LeafletMouseEvent } from 'leaflet';
 import api from '../../services/api';
 
+import Dropzone from '../../components/Dropzone';
+
 import './styles.css';
 
 import logo from '../../assets/logo.svg';
@@ -41,6 +43,7 @@ const CreatePoint = () => {
   const [selectedCity, setSelectedcity] = useState('0');
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const [selectedPosition, setSelectedPosition] = useState<[number, number]>([0, 0]);
+  const [selectedFile, setSelectedFile] = useState<File>();
 
   const history = useHistory();
 
@@ -120,6 +123,8 @@ const CreatePoint = () => {
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
+
+    
     
     const { name, email, whatsapp } = formData;
     const state = selectedUf;
@@ -127,16 +132,30 @@ const CreatePoint = () => {
     const [latitude, longitude] = selectedPosition;
     const items = selectedItems;
 
-    const data = {
-      name,
-      email,
-      whatsapp,
-      state,
-      city,
-      latitude,
-      longitude,
-      items
-    };
+    const data = new FormData();
+
+    // const data = {
+    //   name,
+    //   email,
+    //   whatsapp,
+    //   state,
+    //   city,
+    //   latitude,
+    //   longitude,
+    //   items
+    // };
+      data.append('name', name);
+      data.append('email', email);
+      data.append('whatsapp', whatsapp);
+      data.append('state', state);
+      data.append('city', city);
+      data.append('latitude', String(latitude));
+      data.append('longitude', String(longitude));
+      data.append('items', items.join(','));
+      
+      if (selectedFile) {
+        data.append("image", selectedFile);
+      }
 
     await api.post('points', data);
 
@@ -157,9 +176,9 @@ const CreatePoint = () => {
       </header>
 
       <form onSubmit={handleSubmit}>
-        <h1>
-          Cadastro do <br /> ponto de coleta
-        </h1>
+        <h1>Cadastro do <br /> ponto de coleta</h1>
+
+        <Dropzone onFileUploaded={setSelectedFile} />
 
         <fieldset>
           <legend>
